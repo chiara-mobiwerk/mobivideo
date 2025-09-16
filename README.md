@@ -1,7 +1,7 @@
 # mobivideo
 
 Software um Verkehrs-Videos auf einem Raspberry Pi Zero aufzunehmen.
-## Anforderungen
+# Anforderungen
 - Raspberry Pi Zero W
 - Raspberry Pi Camera Module V2
 - [Ribbon Kabel](https://www.berrybase.de/flexkabel-fuer-raspberry-pi-zero-und-kameramodul-laenge-15-cm) um Kamera und Raspberry zu verbinden
@@ -11,11 +11,11 @@ Software um Verkehrs-Videos auf einem Raspberry Pi Zero aufzunehmen.
 - [Powerbank](https://www.berrybase.de/flexkabel-fuer-raspberry-pi-zero-und-kameramodul-laenge-15-cm)
 - Wasserdichter Koffer
 ![Aufbau]()
-## Installation
-### SD Karte vorbereiten 
+# Installation
+## SD Karte vorbereiten 
 Zuerst muss das richtige Betriebssystem auf die SD Karte geflashed werden. Dafür den [Raspberry Pi Imager](https://www.raspberrypi.com/software/) herunterladen und installieren, die SD Karte einlegen und den Imager starten.
 ![Raspberry Pi Imager](media/imager.png)
-Raspberry Pi Modell (Raspberry Pi Zero), Betriebssystem (Raspberry PI OS Lite (32-Bit)), und SD Karte auswählen. 
+Raspberry Pi Modell (Raspberry Pi Zero), Betriebssystem (Raspberry PI OS (Legacy, 32-Bit) Lite), und SD Karte auswählen. 
 Um die erweiterten Einstellungen zu öffnen <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd> drücken.
 Hier muss der Hostname eingerichtet werden, die Wi-Fi	Anmeldedaten (vom Netzwerk im Büro) sowie Zeitzone und Tastaturlayout gewählt werden. Als Benutzernamen "pi" beibehalten und Passwort vergeben.
 
@@ -24,7 +24,7 @@ Hier muss der Hostname eingerichtet werden, die Wi-Fi	Anmeldedaten (vom Netzwerk
 
 Anschließend <kbd>Weiter</kbd> &rarr; <kbd>Ja</kbd>.
 Nachdem der Schreib-Prozess abgeschlossen ist kann die SD Karte in den Raspberry Pi eingesteckt werden.
-### Raspberry einrichten
+## Raspberry einrichten
 Wichtig: für jede SD-Karte einen anderen Raspberry verwenden, da der SHA256-Hash unter *known_hosts* gespeichert wird und ansonsten keine Verbindung hergestellt werden kann. Alternativ müssen die Einträge aus *known_hosts* nach jedem Einrichten wieder gelöscht werden.
 Ist die SD Karte eingesteckt, kann der Raspberry gebootet werden. Dafür ein micro-USB Kabel in den mit "PWR IN"-beschrifteten Port stecken. Der Raspberry sollte sich nun automatisch mit dem im Setup angegebenen WLAN Netzwerk verbinden. Nach etwa 2 min sollte man sich jetzt per SSH mit dem Raspberry verbinden können. Dazu muss man selbst im gleichen WLAN Netzwerk sein. 
 In einem Terminal `ssh pi@mobipi01` eingeben.
