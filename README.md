@@ -248,6 +248,57 @@ In dieser Datei am Ende folgende Zeile einfügen und anschließend speichern.
 ```bash
 pi ALL=(ALL) NOPASSWD: /sbin/ifconfig wlan0 down, /usr/bin/sudo ifconfig uap0 down, /usr/sbin/hwclock, /usr/bin/sudo /usr/bin/date
 ```
+Im Terminal:
+ssh pi@mobipiXX
+# Pakete erneuern
+sudo apt update
+# nginx installieren
+sudo apt install nginx -y
+# Webserverdatei öffnen 
+sudo nano /etc/nginx/sites-available/default
+# server {…} ändern in:
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /home/pi/mobivideo/templates;
+    index index.html;
+
+    server_name mobipi09;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+
+# restart
+sudo systemctl restart nginx.service
+
+Aus <https://opentrafficcam.org/OTCamera/gettingstarted/installation/otcamera/#setup-webserver-for-preview> 
+
+Test: sudo systemctl status nginx -> muss grün sein
+<img width="776" height="644" alt="grafik" src="https://github.com/user-attachments/assets/578774fa-a484-4ad9-965b-e99376aaa70a" />
+
+## Optional
+Default-Aufnahmezeit ändern:
+ssh pi@mobipi09
+# ins richtige Verzeichnis
+cd /home/pi/mobivideo
+# Backup erstellen
+cp app.py app.py.bak
+## Falls Backup benötigt, kann man die Datei so zurückholen
+# mv app.py.bak app.py
+# Datei öffnen
+nano app.py
+# Titel im Skript ändern
+'Schedule Recording MobipiXX'
+# Zeiten im Skript ändern
+'start_time': '00:00',
+    'stop_time': '23:59'
+# Neustart
+sudo reboot
+<img width="528" height="381" alt="grafik" src="https://github.com/user-attachments/assets/2d32d82f-dd6c-400e-8126-73d3135623a0" />
+
 
 Anschließend kann das Interface in einem Browser unter der Adresse `hostname:5000` aufgerufen werden. `hostname` muss dabei durch den im Imager vergebenen ersetzt werden, z.B. `http://mobipi01:5000/`
 
