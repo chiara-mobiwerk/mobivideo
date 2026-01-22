@@ -248,15 +248,25 @@ In dieser Datei am Ende folgende Zeile einfügen und anschließend speichern.
 ```bash
 pi ALL=(ALL) NOPASSWD: /sbin/ifconfig wlan0 down, /usr/bin/sudo ifconfig uap0 down, /usr/sbin/hwclock, /usr/bin/sudo /usr/bin/date
 ```
+# Nginx installieren (Webserver)
 Im Terminal:
+```bash
 ssh pi@mobipiXX
-# Pakete erneuern
+```
+Pakete erneuern
+```bash
 sudo apt update
-# nginx installieren
+```
+nginx installieren
+```bash
 sudo apt install nginx -y
-# Webserverdatei öffnen 
+```
+Webserverdatei öffnen 
+```bash
 sudo nano /etc/nginx/sites-available/default
-# server {…} ändern in:
+```
+server {…} ändern in:
+```bash
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -270,37 +280,45 @@ server {
         try_files $uri $uri/ =404;
     }
 }
-
-# restart
+```
+restart
+```bash
 sudo systemctl restart nginx.service
-
+```
 Aus <https://opentrafficcam.org/OTCamera/gettingstarted/installation/otcamera/#setup-webserver-for-preview> 
-
-Test: sudo systemctl status nginx -> muss grün sein
+Test: 
+```bash
+sudo systemctl status nginx
+```
+-> muss grün sein
 <img width="776" height="644" alt="grafik" src="https://github.com/user-attachments/assets/578774fa-a484-4ad9-965b-e99376aaa70a" />
 
-## Optional
+# Optional
 Default-Aufnahmezeit ändern:
+```bash
 ssh pi@mobipi09
-# ins richtige Verzeichnis
+```
+ins richtige Verzeichnis
+```bash
 cd /home/pi/mobivideo
-# Backup erstellen
-cp app.py app.py.bak
-## Falls Backup benötigt, kann man die Datei so zurückholen
-# mv app.py.bak app.py
-# Datei öffnen
+```
+Datei öffnen
+```bash
 nano app.py
-# Titel im Skript ändern
-'Schedule Recording MobipiXX'
-# Zeiten im Skript ändern
-'start_time': '00:00',
-    'stop_time': '23:59'
-# Neustart
+```bash
+Titel im Skript ändern  
+'Schedule Recording MobipiXX'  
+Zeiten im Skript ändern  
+'start_time': '00:00',  
+    'stop_time': '23:59'  
+Neustart
+```bash
 sudo reboot
+```
 <img width="528" height="381" alt="grafik" src="https://github.com/user-attachments/assets/2d32d82f-dd6c-400e-8126-73d3135623a0" />
 
 
-Anschließend kann das Interface in einem Browser unter der Adresse `hostname:5000` aufgerufen werden. `hostname` muss dabei durch den im Imager vergebenen ersetzt werden, z.B. `http://mobipi01:5000/`
+Anschließend kann das Interface in einem Browser unter der Adresse `10.10.51.1:5000` aufgerufen werden.
 
 ## Erklärung Video Software
 Struktur:
@@ -324,7 +342,7 @@ Funktionalitäten:
 * Raspberry Pi Uhrzeit an Geräte Uhr angleichen (falls RTC nicht funktioniert)
 * WLAN deaktivieren (um Akku zu sparen)
 
-Die Transfer Data Funktionalität ist nicht vollständig implementiert
+Die Transfer Data Funktionalität ist nicht vollständig implementiert.
 
 ### `record.py`
 Aufnahmen werden stündlich beendet und neu gestartet, um mögliche Fehler vorzubeugen und korrupte Video Dateien auf maximal 1h zu reduzieren. Diese Zeit kann über die Variable `SEGMENT_TIME` angepasst werden.
@@ -333,25 +351,7 @@ Ist die Kamera anders verbaut, kann ihre Rotation angepasst werden: Zeile 36: `c
 Videos werden im Format `<hostname>_FR<fps>_<YYYY-MM-DD_HH-SS>.h264` benannt, somit müssen FPS und Anfangszeit bei Konvertierung mit OTVision nicht mehr manuell angegeben werden.
 
 ## Nutzung
-### Checkliste bevor es losgeht
-* Akkus geladen?
-* Geräte testen, ob im Ordner Videos schon was vorhanden ist.
-
-Packliste:
-* 20 Geräte in 20 Kästen
-* 20 Akkus
-* 20 Befestigungen
-* Kreide und Maßband
-  
-### Am Standort
- 1. Koffer am Standort öffnen und Akku anstecken. 
- 2. Koffer verschließen und aufhängen.
- 3. Im WLAN-Netzwerk des Geräts anmelden.
- 4. Im Browser `http://<hostname>:5000` oder `http://10.42.0.1:5000` aufrufen.
- 5. Mit "Capture Preview" Sichtfeld der Kamera überprüfen und eventuell Ausrichtung mit Stativkopf anpassen.
- 6. Mit Kreide zwei Markierungen quer über die Straße zeichnen, möglichst weit voneinander entfernt (um Geschwindigkeit messen zu können), Abstand zwischen den Linien messen.
- 7. Solange nicht der Standard Plan von 5:00-23:00 Uhr verwendet werden soll diesen anpassen. Mit "Set Schedule" bestätigen.
- 8. "Disable Wi-Fi and Bluetooth" um Akku zu sparen.
+Die Vorbereitung der Verkehrszählung ist dem Handbuch Verkehrszählgeräte des Mobilitätswerks zu entnehmen.
 
 ### Zurück im Büro
 Die aufgenommenen Videos können von den Geräten über WLAN mit `scp` heruntergeladen werden. Dafür muss ein Gerät angeschalten werden, sich mit dem WLAN Netzwerk verbunden werden und der folgende Befehl in der Konsole eingeben werden. Dabei wird erst die remote und dann die local-destination angegeben. 
