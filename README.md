@@ -291,7 +291,6 @@ Test:
 sudo systemctl status nginx
 ```
 -> muss grün sein
-<img width="776" height="644" alt="grafik" src="https://github.com/user-attachments/assets/578774fa-a484-4ad9-965b-e99376aaa70a" />
 
 # Optional
 Default-Aufnahmezeit ändern:
@@ -315,9 +314,6 @@ Neustart
 ```bash
 sudo reboot
 ```
-<img width="528" height="381" alt="grafik" src="https://github.com/user-attachments/assets/2d32d82f-dd6c-400e-8126-73d3135623a0" />
-
-
 Anschließend kann das Interface in einem Browser unter der Adresse `10.10.51.1:5000` aufgerufen werden.
 
 ## Erklärung Video Software
